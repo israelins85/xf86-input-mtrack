@@ -360,6 +360,16 @@ static void tapping_update(struct Gestures* gs,
 				CLEARBIT(ms->touch[i].flags, GS_TAP);
 		}
 
+		if (cfg->absolute_track) {
+			// move the mouse to correct position
+			gs->has_absolute_pos = 1;
+			gs->abs_x = ms->touch[0].x;
+			gs->abs_y = ms->touch[0].y;
+#ifdef DEBUG_GESTURES
+			xf86Msg(X_INFO, "buttons_update: absolute track to x: %d, y: %d\n", gs->abs_x, gs->abs_y);
+#endif
+		}
+
 		if (gs->tap_released == 1)
 			n = cfg->tap_1touch - 1;
 		else if (gs->tap_released == 2)
@@ -384,21 +394,33 @@ static void tapping_update(struct Gestures* gs,
 
 static void trigger_move(struct Gestures* gs,
 			const struct MConfig* cfg,
+			struct MTState* ms,
 			int dx, int dy)
 {
 	if ((gs->move_type == GS_MOVE || !timercmp(&gs->time, &gs->move_wait, <)) && (dx != 0 || dy != 0)) {
 		if (trigger_drag_start(gs, cfg, dx, dy)) {
-			gs->move_dx = (int)(dx*cfg->sensitivity);
-			gs->move_dy = (int)(dy*cfg->sensitivity);
-			gs->move_type = GS_MOVE;
-			gs->move_dist = 0;
-			gs->move_dir = TR_NONE;
-			gs->move_speed = hypot(gs->move_dx, gs->move_dy)/timertomicro(&gs->dt);
-			timerclear(&gs->move_wait);
+			if (cfg->absolute_track) {
+				// move the mouse to correct position
+				gs->has_absolute_pos = 1;
+				gs->abs_x = ms->touch[0].x;
+				gs->abs_y = ms->touch[0].y;
 #ifdef DEBUG_GESTURES
-			xf86Msg(X_INFO, "trigger_move: %d, %d (speed %f)\n",
-				gs->move_dx, gs->move_dy, gs->move_speed);
+				xf86Msg(X_INFO, "trigger_move: absolute track to x: %d, y: %d\n",
+					gs->abs_x, gs->abs_y);
 #endif
+			} else {
+				gs->move_dx = (int)(dx*cfg->sensitivity);
+				gs->move_dy = (int)(dy*cfg->sensitivity);
+				gs->move_type = GS_MOVE;
+				gs->move_dist = 0;
+				gs->move_dir = TR_NONE;
+				gs->move_speed = hypot(gs->move_dx, gs->move_dy)/timertomicro(&gs->dt);
+				timerclear(&gs->move_wait);
+#ifdef DEBUG_GESTURES
+				xf86Msg(X_INFO, "trigger_move: %d, %d (speed %f)\n",
+					gs->move_dx, gs->move_dy, gs->move_speed);
+#endif
+			}
 		}
 	}
 }
@@ -677,14 +699,14 @@ static void moving_update(struct Gestures* gs,
 	// Determine gesture type.
 	if (count == 0) {
 		if (btn_count >= 1 && cfg->trackpad_disable < 2)
-			trigger_move(gs, cfg, dx, dy);
+			trigger_move(gs, cfg, ms, dx, dy);
 		else if (btn_count < 1)
 			trigger_reset(gs);
 	}
 	else if (count == 1 && cfg->trackpad_disable < 2) {
 		dx += touches[0]->dx;
 		dy += touches[0]->dy;
-		trigger_move(gs, cfg, dx, dy);
+		trigger_move(gs, cfg, ms, dx, dy);
 	}
 	else if (count == 2 && cfg->trackpad_disable < 1) {
 		// scroll, scale, or rotate

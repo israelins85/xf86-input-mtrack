@@ -196,6 +196,9 @@ static void handle_gestures(LocalDevicePtr local,
 	static bitmask_t buttons_prev = 0U;
 	int i;
 
+	if (gs->has_absolute_pos)
+		xf86PostMotionEvent(local->dev, 1, 0, 2, gs->abs_x, gs->abs_y);
+
 	for (i = 0; i < 32; i++) {
 		if (GETBIT(gs->buttons, i) == GETBIT(buttons_prev, i))
 			continue;

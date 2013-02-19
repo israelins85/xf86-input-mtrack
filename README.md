@@ -286,6 +286,10 @@ Whether or not to invert the X axis. Boolean value. Defaults to false.
 **AxisYInvert** -
 Whether or not to invert the Y axis. Boolean value. Defaults to false.
 
+**AbsoluteTrack** -
+Whether or not to use the touch events to set cursor position. Useful for
+touchscreen devices. Boolean value. Defaults to false.
+
 **InvertVScroll** -
 Whether or not to invert the vertical scroll. Boolean value. Useful for
 simulate natural scroller. Defaults to false.

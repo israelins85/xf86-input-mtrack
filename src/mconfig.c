@@ -77,6 +77,7 @@ void mconfig_defaults(struct MConfig* cfg)
 	cfg->drag_enable = DEFAULT_DRAG_ENABLE;
 	cfg->drag_timeout = DEFAULT_DRAG_TIMEOUT;
 	cfg->sensitivity = DEFAULT_SENSITIVITY;
+	cfg->absolute_track = DEFAULT_ABSOLUTE_TRACK;
 	cfg->invert_v_scroll = DEFAULT_INVERT_V_SCROLL;
 	cfg->invert_h_scroll = DEFAULT_INVERT_H_SCROLL;
 }
@@ -180,6 +181,7 @@ void mconfig_configure(struct MConfig* cfg,
 	cfg->axis_x_invert = xf86SetBoolOption(opts, "AxisXInvert", DEFAULT_AXIS_X_INVERT);
 	cfg->axis_y_invert = xf86SetBoolOption(opts, "AxisYInvert", DEFAULT_AXIS_Y_INVERT);
 	cfg->sensitivity = MAXVAL(xf86SetRealOption(opts, "Sensitivity", DEFAULT_SENSITIVITY), 0);
+	cfg->absolute_track = xf86SetBoolOption(opts, "AbsoluteTrack", DEFAULT_ABSOLUTE_TRACK);
 	cfg->invert_v_scroll = xf86SetBoolOption(opts, "InvertVScroll", DEFAULT_INVERT_V_SCROLL);
 	cfg->invert_h_scroll = xf86SetBoolOption(opts, "InvertHScroll", DEFAULT_INVERT_H_SCROLL);
 }

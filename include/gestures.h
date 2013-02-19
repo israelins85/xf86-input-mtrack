@@ -51,6 +51,12 @@ struct Gestures {
 	 */
 	bitmask_t buttons;
 
+	/* Pointer absolute movement is tracked here.
+	 */
+	int has_absolute_pos;
+	int abs_x;
+	int abs_y;
+
 	/* Pointer movement is tracked here.
 	 */
 	int move_dx, move_dy;
