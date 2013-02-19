@@ -231,24 +231,24 @@ static void touches_update(struct MTState* ms,
 				SETBIT(ms->touch[n].state, MT_THUMB);
 			else
 				CLEARBIT(ms->touch[n].state, MT_THUMB);
-			
+
 			if (is_palm(cfg, &hs->data[i]))
 				SETBIT(ms->touch[n].state, MT_PALM);
 			else
 				CLEARBIT(ms->touch[n].state, MT_PALM);
-			
+
 			if (ms->touch[n].y > (100 - cfg->bottom_edge)*cfg->pad_height/100) {
 				if (GETBIT(ms->touch[n].state, MT_NEW))
 					SETBIT(ms->touch[n].state, MT_BOTTOM_EDGE);
 			}
 			else
 				CLEARBIT(ms->touch[n].state, MT_BOTTOM_EDGE);
-			
+
 			MODBIT(ms->touch[n].state, MT_INVALID,
 				GETBIT(ms->touch[n].state, MT_THUMB) && cfg->ignore_thumb ||
 				GETBIT(ms->touch[n].state, MT_PALM) && cfg->ignore_palm ||
 				GETBIT(ms->touch[n].state, MT_BOTTOM_EDGE));
-			
+
 			disable |= cfg->disable_on_thumb && GETBIT(ms->touch[n].state, MT_THUMB);
 			disable |= cfg->disable_on_palm && GETBIT(ms->touch[n].state, MT_PALM);
 		}

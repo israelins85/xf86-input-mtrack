@@ -237,7 +237,7 @@ int mprops_set_property(DeviceIntPtr dev, Atom property, XIPropertyValuePtr prop
 		}
 	}
 	else if (property == mprops.pressure) {
-		if (prop->size != 2 || prop->format != 8 || prop->type != XA_INTEGER) 
+		if (prop->size != 2 || prop->format != 8 || prop->type != XA_INTEGER)
 			return BadMatch;
 
 		ivals8 = (uint8_t*)prop->data;
@@ -254,7 +254,7 @@ int mprops_set_property(DeviceIntPtr dev, Atom property, XIPropertyValuePtr prop
 		}
 	}
 	else if (property == mprops.button_settings) {
-		if (prop->size != 2 || prop->format != 8 || prop->type != XA_INTEGER) 
+		if (prop->size != 2 || prop->format != 8 || prop->type != XA_INTEGER)
 			return BadMatch;
 
 		ivals8 = (uint8_t*)prop->data;
@@ -332,7 +332,7 @@ int mprops_set_property(DeviceIntPtr dev, Atom property, XIPropertyValuePtr prop
 		if (!VALID_BUTTON(ivals8[0]) || !VALID_BUTTON(ivals8[1]) || !VALID_BUTTON(ivals8[2]) || !VALID_BUTTON(ivals8[3]))
 			return BadMatch;
 
-		if (!checkonly) {			
+		if (!checkonly) {
 			cfg->tap_1touch = ivals8[0];
 			cfg->tap_2touch = ivals8[1];
 			cfg->tap_3touch = ivals8[2];

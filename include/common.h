@@ -53,7 +53,7 @@ typedef unsigned int bitmask_t;
 #define MODBIT(m, x, b) ((b) ? SETBIT(m, x) : CLEARBIT(m, x))
 
 #define ABSVAL(x) ((x) < 0 ? -1*(x) : (x))
-#define MINVAL(x, y) ((x) < (y) ? (x) : (y)) 
+#define MINVAL(x, y) ((x) < (y) ? (x) : (y))
 #define MAXVAL(x, y) ((x) > (y) ? (x) : (y))
 #define MODVAL(x, y) ((x) - ((int)((x) / (y))) * (y))
 #define SQRVAL(x) ((x) * (x))
