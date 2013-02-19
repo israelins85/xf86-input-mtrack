@@ -416,6 +416,20 @@ static void trigger_scroll(struct Gestures* gs,
 		gs->move_dy = 0;
 		gs->move_type = GS_SCROLL;
 		gs->move_dist += (int)ABSVAL(dist);
+		if (cfg->invert_v_scroll) {
+			if (dir == TR_DIR_UP) {
+				dir = TR_DIR_DN;
+			} else if (dir == TR_DIR_DN) {
+				dir = TR_DIR_UP;
+			}
+		}
+		if (cfg->invert_h_scroll) {
+			if (dir == TR_DIR_LT) {
+				dir = TR_DIR_RT;
+			} else if (dir == TR_DIR_RT) {
+				dir = TR_DIR_LT;
+			}
+		}
 		gs->move_dir = dir;
 		gs->move_speed = dist/timertomicro(&gs->dt);
 		timeraddms(&gs->time, cfg->gesture_wait, &gs->move_wait);

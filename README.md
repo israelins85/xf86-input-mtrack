@@ -286,6 +286,13 @@ Whether or not to invert the X axis. Boolean value. Defaults to false.
 **AxisYInvert** -
 Whether or not to invert the Y axis. Boolean value. Defaults to false.
 
+**InvertVScroll** -
+Whether or not to invert the vertical scroll. Boolean value. Useful for
+simulate natural scroller. Defaults to false.
+
+**InvertHScroll** -
+Whether or not to invert the horizontal scroll. Boolean value. Useful for
+simulate natural scroller. Defaults to false.
 
 [1]: http://www.kernel.org/doc/Documentation/input/multi-touch-protocol.txt                 "Kernel Multitouch Protocol"
 [2]: http://www.gnu.org/licenses/gpl-2.0.html                                               "GNU General Public License, version 2"

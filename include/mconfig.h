@@ -80,6 +80,8 @@
 #define DEFAULT_AXIS_X_INVERT 0
 #define DEFAULT_AXIS_Y_INVERT 0
 #define DEFAULT_SENSITIVITY 1.0
+#define DEFAULT_INVERT_H_SCROLL 0
+#define DEFAULT_INVERT_V_SCROLL 0
 
 #define MCFG_NONE 0
 #define MCFG_SCALE 1
@@ -162,6 +164,8 @@ struct MConfig {
 	int drag_wait;			// How long to wait before triggering button down? >= 0
 	int drag_dist;			// How far is the finger allowed to move during wait time? >= 0
 	double sensitivity;		// Mouse movement multiplier. >= 0
+	int invert_v_scroll;     // inverts the vertical scroll direction. >= 0, 0 disables
+	int invert_h_scroll;     // inverts the horizontal scroll direction. >= 0, 0 disables
 };
 
 /* Load the MConfig struct with its defaults.
